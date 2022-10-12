@@ -2,11 +2,14 @@ package hexlet.code;
 
 public final class StringSchema {
     private static String status = "not required";
+
     public StringSchema() {
     }
+
     public static void setStatus() {
         status = status;
     }
+
     public static String getStatus() {
         return status;
     }
@@ -17,9 +20,11 @@ public final class StringSchema {
         }
         return false;
     }
+
     public void required() {
         status = "required";
     }
+
     public void contains() {
         status = "contains";
 
