@@ -1,9 +1,14 @@
 package hexlet.code;
 
-public class StringSchema {
-    public String status = "not required";
+public final class StringSchema {
+    private static String status = "not required";
     public StringSchema() {
-
+    }
+    public static void setStatus() {
+        status = status;
+    }
+    public static String getStatus() {
+        return status;
     }
 
     public boolean isValid(Object obj) {

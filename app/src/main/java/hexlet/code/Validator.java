@@ -1,6 +1,6 @@
 package hexlet.code;
 
-public class Validator {
+public final class Validator {
     public Validator() {
     }
 

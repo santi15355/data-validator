@@ -13,5 +13,7 @@ public class StringSchemaTest {
     var actual = schema.isValid("");
     var expected = true;
     assertThat(actual).isEqualTo(expected);
+    schema.required();
+    assertThat(schema.isValid("")).isEqualTo(false);
     }
 }
