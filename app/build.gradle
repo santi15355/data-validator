@@ -1,5 +1,18 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'distribution'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.adarshr.test-logger' version '3.1.0'
+}
+
+application {
+    mainClass = 'hexlet.code.App'
+}
+
+compileJava {
+    options.release = 17
 }
 
 group 'hexlet.code'
@@ -9,15 +22,33 @@ repositories {
     mavenCentral()
 }
 
-compileJava {
-    options.release = 17
-}
-
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
+    testImplementation 'org.assertj:assertj-core:3.23.1'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.4'
 }
+
+checkstyle {
+    toolVersion '9.2.1'
+}
+
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        csv.required = true
+        html.outputLocation = layout.buildDirectory.dir('jacoco')
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.7"
 }
