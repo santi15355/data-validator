@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public final class SchemaTest {
-    private final int testNumber = 10;
     private final Validator v = new Validator();
     private final NumberSchema schemaNbr = v.number();
 
@@ -79,19 +78,25 @@ public final class SchemaTest {
     }
 
     @Test
-    public void stringSchemaTestRequiredNull() {
+    public void numberSchemaTestRequiredNull() {
         schemaNbr.required();
         var actual = schemaNbr.isValid(null);
         assertThat(actual).isEqualTo(false);
     }
 
     @Test
-    public void stringSchemaTestRequiredNumber() {
+    public void numberSchemaTestRequiredNumber() {
         assertThat(schemaNbr.isValid(null)).isEqualTo(true);
         schemaNbr.required();
+        final int testNumber = 10;
         assertThat(schemaNbr.isValid(testNumber)).isEqualTo(true);
         assertThat(schemaNbr.isValid("5")).isEqualTo(false);
     }
 
-
+    @Test
+    public void numberSchemaTestPositive() {
+        schemaNbr.positive();
+        final int testNumber = -10;
+        assertThat(schemaNbr.isValid(testNumber)).isEqualTo(false);
+    }
 }
