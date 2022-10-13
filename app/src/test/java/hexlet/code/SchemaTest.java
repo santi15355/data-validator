@@ -8,7 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public final class SchemaTest {
     private final Validator v = new Validator();
     private final NumberSchema schemaNbr = v.number();
-
     private final StringSchema schemaStr = v.string();
 
     @BeforeEach
@@ -98,5 +97,18 @@ public final class SchemaTest {
         schemaNbr.positive();
         final int testNumber = -10;
         assertThat(schemaNbr.isValid(testNumber)).isEqualTo(false);
+    }
+
+    @Test
+    public void numberSchemaTestRange() {
+        final int four = 4;
+        final int five = 5;
+        final int seven = 7;
+        final int nine = 9;
+        schemaNbr.range(five, nine);
+        assertThat(schemaNbr.isValid(four)).isEqualTo(false);
+        assertThat(schemaNbr.isValid(five)).isEqualTo(true);
+        assertThat(schemaNbr.isValid(seven)).isEqualTo(true);
+        assertThat(schemaNbr.isValid(nine)).isEqualTo(true);
     }
 }

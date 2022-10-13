@@ -2,7 +2,8 @@ package hexlet.code;
 
 public final class NumberSchema {
     private static String status = "not required";
-    private static String data;
+    private static Integer number1;
+    private static Integer number2;
 
     public String getStatus() {
         return status;
@@ -22,6 +23,9 @@ public final class NumberSchema {
         if (status.equals("positive")) {
             return ((int) obj) >= 0;
         }
+        if (status.equals("range")) {
+            return (int) obj >= number1 && (int) obj <= number2;
+        }
         return false;
     }
 
@@ -31,5 +35,10 @@ public final class NumberSchema {
 
     public void positive() {
         setStatus("positive");
+    }
+    public void range(int data1, int data2) {
+        setStatus("range");
+        NumberSchema.number1 = data1;
+        NumberSchema.number2 = data2;
     }
 }
