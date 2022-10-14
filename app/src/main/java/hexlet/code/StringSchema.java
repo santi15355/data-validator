@@ -1,37 +1,16 @@
 package hexlet.code;
 
-public final class StringSchema {
-    private static String status = "not required";
-    private static String data;
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String flag) {
-        StringSchema.status = flag;
-    }
-
-    public boolean isValid(Object obj) {
-        if (status.equals("not required")) {
-            return true;
-        }
-        if (status.equals("required") && obj == null || obj == "") {
-            return false;
-        }
-        if (status.equals("contains")) {
-            return ((String) obj).contains(data);
-        }
-        return true;
-    }
+public final class StringSchema extends BaseSchema {
 
     public void required() {
-        status = "required";
+        this.transferData("required", obj -> obj instanceof String);
     }
 
-    public StringSchema contains(String text) {
-        status = "contains";
-        StringSchema.data = text;
-        return this;
+    public void contains(String text) {
+        transferData("contains", obj -> ((String) obj).contains(text));
+    }
+
+    public void minLength(int length) {
+        transferData("minLength", obj -> ((String) obj).length() >= length);
     }
 }
