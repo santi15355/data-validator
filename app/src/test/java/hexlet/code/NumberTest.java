@@ -17,8 +17,6 @@ public class NumberTest {
 
     @Test
     public void numberSchemaTest() {
-        System.out.println(BaseSchema.getStatus());
-
         assertTrue(schema.isValid(null));
 
         schema.required();

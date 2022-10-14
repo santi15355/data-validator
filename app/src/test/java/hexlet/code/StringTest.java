@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class SchemaTest {
+public final class StringTest {
     private final Validator v = new Validator();
     private StringSchema schema;
 
@@ -17,7 +17,6 @@ public final class SchemaTest {
 
     @Test
     public void stringSchemaTest() {
-        System.out.println(BaseSchema.getStatus());
         assertTrue(schema.isValid("")); // true
         assertTrue(schema.isValid(null)); // true
 

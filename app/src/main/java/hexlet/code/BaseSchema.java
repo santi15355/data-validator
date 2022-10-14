@@ -23,7 +23,7 @@ public abstract class BaseSchema {
         for (var predicate : predicates.entrySet()) {
             return predicate.getValue().test(obj);
         }
-        return status.equals("none");
+        return true;
 
     }
 
