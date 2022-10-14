@@ -11,7 +11,7 @@ public abstract class BaseSchema {
 
     public final boolean isValid(Object obj) {
 
-        if (status.equals("none")) {
+        if (status.equals("none") && obj == "") {
             return true;
         }
         if (status.equals("required") && obj == null || obj == "") {
