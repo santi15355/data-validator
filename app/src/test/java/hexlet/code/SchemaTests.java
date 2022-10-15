@@ -1,5 +1,7 @@
 package hexlet.code;
 
+import hexlet.code.schemas.NumberSchema;
+import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,8 +29,7 @@ public class SchemaTests {
         assertTrue(nbrSchema.isValid(2));
         assertFalse(nbrSchema.isValid("5"));
 
-        nbrSchema.positive();
-        assertTrue(nbrSchema.isValid(2));
+        assertTrue(nbrSchema.positive().isValid(2));
         assertFalse(nbrSchema.isValid(-1));
 
         nbrSchema.range(0, 2);
@@ -55,15 +56,12 @@ public class SchemaTests {
         assertFalse(strSchema.isValid(null));
         assertFalse(strSchema.isValid(""));
 
-        strSchema.contains("wh");
-
-        assertTrue(strSchema.isValid("what does the fox say"));
-        strSchema.contains("what");
-        assertTrue(strSchema.isValid("what does the fox say"));
-        strSchema.contains("whatthe");
-        assertFalse(strSchema.isValid("what does the fox say"));
-
-        assertFalse(strSchema.isValid("what does the fox say"));
+        assertTrue(strSchema.contains("wh")
+                .isValid("what does the fox say"));
+        assertTrue(strSchema.contains("what")
+                .isValid("what does the fox say"));
+        assertFalse(strSchema.contains("whatthe")
+                .isValid("what does the fox say"));
 
         strSchema.minLength(2);
         assertTrue(strSchema.isValid("whatthe"));
