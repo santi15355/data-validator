@@ -11,20 +11,16 @@ public abstract class BaseSchema {
 
     public final boolean isValid(Object obj) {
 
-        if (status.equals("none") && obj == "") {
+        if (status.equals("none")) {
             return true;
         }
         if (status.equals("required") && obj == null || obj == "") {
             return false;
         }
-        if (predicates.isEmpty()) {
-            return true;
-        }
         for (var predicate : predicates.entrySet()) {
             return predicate.getValue().test(obj);
         }
         return true;
-
     }
 
     public static String getStatus() {

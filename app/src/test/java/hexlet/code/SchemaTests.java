@@ -8,34 +8,34 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SchemaTests {
     private final Validator v = new Validator();
-    private NumberSchema schema;
-    private StringSchema schema1;
+    private NumberSchema nbrSchema;
+    private StringSchema strSchema;
 
     @BeforeEach
     public final void beforeEach() {
-        schema1 = v.string();
-        schema = v.number();
+        strSchema = v.string();
+        nbrSchema = v.number();
     }
 
     @Test
     public void numberSchemaTest() {
-        assertTrue(schema.isValid(null));
+        assertTrue(nbrSchema.isValid(null));
 
-        schema.required();
+        nbrSchema.required();
 
-        assertFalse(schema.isValid(null));
-        assertTrue(schema.isValid(2));
-        assertFalse(schema.isValid("5"));
+        assertFalse(nbrSchema.isValid(null));
+        assertTrue(nbrSchema.isValid(2));
+        assertFalse(nbrSchema.isValid("5"));
 
-        schema.positive();
-        assertTrue(schema.isValid(2));
-        assertFalse(schema.isValid(-1));
+        nbrSchema.positive();
+        assertTrue(nbrSchema.isValid(2));
+        assertFalse(nbrSchema.isValid(-1));
 
-        schema.range(0, 2);
-        assertTrue(schema.isValid(0));
-        assertTrue(schema.isValid(2));
-        assertFalse(schema.isValid(-1));
-        assertFalse(schema.isValid(-1));
+        nbrSchema.range(0, 2);
+        assertTrue(nbrSchema.isValid(0));
+        assertTrue(nbrSchema.isValid(2));
+        assertFalse(nbrSchema.isValid(-1));
+        assertFalse(nbrSchema.isValid(-1));
 
     }
 
@@ -43,32 +43,32 @@ public class SchemaTests {
     public void stringSchemaTest() {
         final int five = 5;
 
-        assertTrue(schema.isValid(null));
-        assertTrue(schema1.isValid(""));
+        assertTrue(nbrSchema.isValid(null));
+        assertTrue(strSchema.isValid(""));
 
-        schema1.required();
+        strSchema.required();
 
-        assertFalse(schema1.isValid(five));
+        assertFalse(strSchema.isValid(five));
 
-        assertTrue(schema1.isValid("what does the fox say"));
-        assertTrue(schema1.isValid("hexlet"));
-        assertFalse(schema1.isValid(null));
-        assertFalse(schema1.isValid(""));
+        assertTrue(strSchema.isValid("what does the fox say"));
+        assertTrue(strSchema.isValid("hexlet"));
+        assertFalse(strSchema.isValid(null));
+        assertFalse(strSchema.isValid(""));
 
-        schema1.contains("wh");
+        strSchema.contains("wh");
 
-        assertTrue(schema1.isValid("what does the fox say"));
-        schema1.contains("what");
-        assertTrue(schema1.isValid("what does the fox say"));
-        schema1.contains("whatthe");
-        assertFalse(schema1.isValid("what does the fox say"));
+        assertTrue(strSchema.isValid("what does the fox say"));
+        strSchema.contains("what");
+        assertTrue(strSchema.isValid("what does the fox say"));
+        strSchema.contains("whatthe");
+        assertFalse(strSchema.isValid("what does the fox say"));
 
-        assertFalse(schema1.isValid("what does the fox say"));
+        assertFalse(strSchema.isValid("what does the fox say"));
 
-        schema1.minLength(2);
-        assertTrue(schema1.isValid("whatthe"));
-        schema1.minLength(five);
-        assertFalse(schema1.isValid("wht"));
+        strSchema.minLength(2);
+        assertTrue(strSchema.isValid("whatthe"));
+        strSchema.minLength(five);
+        assertFalse(strSchema.isValid("wht"));
 
     }
 }
