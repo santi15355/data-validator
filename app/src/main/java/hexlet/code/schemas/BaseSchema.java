@@ -11,7 +11,7 @@ public abstract class BaseSchema {
 
     public final boolean isValid(Object obj) {
 
-        if (status.equals("none")) {
+        if (predicates.isEmpty()) {
             return true;
         }
         if (status.equals("required") && obj == null || obj == "") {
@@ -25,6 +25,9 @@ public abstract class BaseSchema {
 
     public static String getStatus() {
         return status;
+    }
+    public static void setStatus(String value) {
+        value = status;
     }
 
     public final void transferData(String flag, Predicate<Object> predicate) {

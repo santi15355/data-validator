@@ -1,22 +1,56 @@
 package hexlet.code;
 
+import hexlet.code.schemas.BaseSchema;
+import hexlet.code.schemas.MapSchema;
 import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SchemaTests {
+public final class SchemaTests {
     private final Validator v = new Validator();
     private NumberSchema nbrSchema;
     private StringSchema strSchema;
+    private MapSchema mapSchema;
 
     @BeforeEach
-    public final void beforeEach() {
+    public void beforeEach() {
         strSchema = v.string();
         nbrSchema = v.number();
+        mapSchema = v.map();
+    }
+
+    @Test
+    public void stringSchemaTest() {
+        final int five = 5;
+        assertTrue(strSchema.isValid(""));
+        assertTrue(strSchema.isValid("null"));
+
+        strSchema.required();
+
+        assertFalse(strSchema.isValid(five));
+        assertTrue(strSchema.isValid("what does the fox say"));
+        assertTrue(strSchema.isValid("hexlet"));
+        assertFalse(strSchema.isValid(null));
+        assertFalse(strSchema.isValid(""));
+
+        assertTrue(strSchema.contains("wh")
+                .isValid("what does the fox say"));
+        assertTrue(strSchema.contains("what")
+                .isValid("what does the fox say"));
+        assertFalse(strSchema.contains("whatthe")
+                .isValid("what does the fox say"));
+
+        strSchema.minLength(2);
+        assertTrue(strSchema.isValid("whatthe"));
+        strSchema.minLength(five);
+        assertFalse(strSchema.isValid("wht"));
     }
 
     @Test
@@ -41,32 +75,23 @@ public class SchemaTests {
     }
 
     @Test
-    public void stringSchemaTest() {
-        final int five = 5;
+    public void mapSchemaTest() {
 
-        assertTrue(nbrSchema.isValid(null));
-        assertTrue(strSchema.isValid(""));
+        assertTrue(mapSchema.isValid(null));
+        assertTrue(mapSchema.isValid(""));
 
-        strSchema.required();
+        mapSchema.required();
 
-        assertFalse(strSchema.isValid(five));
+        assertFalse(mapSchema.isValid(null));
+        assertTrue(mapSchema.isValid(new HashMap<>()));
+        Map<String, String> data = new HashMap<>();
+        data.put("key1", "value1");
+        assertTrue(mapSchema.isValid(data));
 
-        assertTrue(strSchema.isValid("what does the fox say"));
-        assertTrue(strSchema.isValid("hexlet"));
-        assertFalse(strSchema.isValid(null));
-        assertFalse(strSchema.isValid(""));
+        mapSchema.sizeof(2);
 
-        assertTrue(strSchema.contains("wh")
-                .isValid("what does the fox say"));
-        assertTrue(strSchema.contains("what")
-                .isValid("what does the fox say"));
-        assertFalse(strSchema.contains("whatthe")
-                .isValid("what does the fox say"));
-
-        strSchema.minLength(2);
-        assertTrue(strSchema.isValid("whatthe"));
-        strSchema.minLength(five);
-        assertFalse(strSchema.isValid("wht"));
-
+        assertFalse(mapSchema.isValid(data));
+        data.put("key2", "value2");
+        assertTrue(mapSchema.isValid(data));
     }
 }
