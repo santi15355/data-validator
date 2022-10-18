@@ -12,8 +12,8 @@ public final class StringSchema extends BaseSchema {
         return this;
     }
 
-    public StringSchema minLength(int length) {
-        transferData("minLength", obj -> ((String) obj).length() >= length);
+    public StringSchema minLength(int value) {
+        transferData("minLength", obj -> obj.toString().length() >= value);
         return this;
     }
 }

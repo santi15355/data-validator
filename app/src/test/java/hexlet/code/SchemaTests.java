@@ -40,21 +40,24 @@ public final class SchemaTests {
         assertFalse(strSchema.isValid(null));
         assertFalse(strSchema.isValid(""));
 
+        strSchema.minLength(five);
+
+        assertTrue(strSchema.isValid("whatthe"));
+        assertFalse(strSchema.isValid("wht"));
+        assertTrue(strSchema.isValid("whafe"));
+
         assertTrue(strSchema.contains("wh")
                 .isValid("what does the fox say"));
         assertTrue(strSchema.contains("what")
                 .isValid("what does the fox say"));
         assertFalse(strSchema.contains("whatthe")
                 .isValid("what does the fox say"));
-
-        strSchema.minLength(2);
-        assertTrue(strSchema.isValid("whatthe"));
-        strSchema.minLength(five);
-        assertFalse(strSchema.isValid("wht"));
     }
 
     @Test
     public void numberSchemaTest() {
+        final int five = 5;
+
         assertTrue(nbrSchema.isValid(null));
 
         nbrSchema.required();
@@ -64,14 +67,14 @@ public final class SchemaTests {
         assertFalse(nbrSchema.isValid("5"));
 
         assertTrue(nbrSchema.positive().isValid(2));
-        //assertFalse(nbrSchema.positive().isValid(null));
         assertFalse(nbrSchema.isValid(-1));
 
         nbrSchema.range(0, 2);
         assertTrue(nbrSchema.isValid(0));
         assertTrue(nbrSchema.isValid(2));
+        assertTrue(nbrSchema.isValid(1));
         assertFalse(nbrSchema.isValid(-1));
-        assertFalse(nbrSchema.isValid(-1));
+        assertFalse(nbrSchema.isValid(five));
 
     }
 
