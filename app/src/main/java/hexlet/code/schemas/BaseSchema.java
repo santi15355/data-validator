@@ -24,13 +24,6 @@ public abstract class BaseSchema {
         return result;
     }
 
-    /*public static String getStatus() {
-        return status;
-    }*/
-    /*public static void setStatus(String value) {
-        value = status;
-    }*/
-
     public final void transferData(String flag, Predicate<Object> predicate) {
         status = flag;
         predicates.put(status, predicate);
