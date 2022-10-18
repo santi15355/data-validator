@@ -8,16 +8,14 @@ public abstract class BaseSchema {
 
     private final Map<String, Predicate<Object>> predicates = new HashMap<>();
     private static String status;
-    private boolean flag = false;
+    private boolean result;
 
     public final boolean isValid(Object obj) {
-        boolean result = !flag;
 
         if (predicates.isEmpty()) {
             result = true;
         } else if (status.equals("required") && obj == null || obj == "") {
             result = false;
-            //return flag;
         } else {
             for (var predicate : predicates.entrySet()) {
                 return predicate.getValue().test(obj);

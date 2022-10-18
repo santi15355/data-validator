@@ -1,11 +1,16 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/santi15355/java-project-78/workflows/hexlet-check/badge.svg)](https://github.com/santi15355/java-project-78/actions)   [![build](https://github.com/santi15355/java-project-78/actions/workflows/build.yml/badge.svg)](https://github.com/santi15355/java-project-78/actions/workflows/build.yml)   [![Maintainability](https://api.codeclimate.com/v1/badges/066dfd9488503a1f1899/maintainability)](https://codeclimate.com/github/santi15355/java-project-78/maintainability)   [![Test Coverage](https://api.codeclimate.com/v1/badges/066dfd9488503a1f1899/test_coverage)](https://codeclimate.com/github/santi15355/java-project-78/test_coverage)
 
-About validation:
-Validation of strings:
-required – любая непустая строка
-minLength – строка равна или длиннее указанного числа
-contains – строка содержит определённую подстроку
+### About validation:
+
+#### Validation of strings: 
+<ul>
+    <li><b>required</b> – любая непустая строка</li>
+    <li><b>minLength</b> – строка равна или длиннее указанного числа</li>
+    <li><b>contains</b> – строка содержит определённую подстроку</li>
+</ul>
+
+```sh
 import hexlet.code.Validator;
 import hexlet.code.schemas.StringSchema;
 
@@ -29,10 +34,16 @@ schema.contains("whatthe").isValid("what does the fox say"); // false
 
 schema.isValid("what does the fox say"); // false
 // уже false, так как добавлена ещё одна проверка contains("whatthe")
-Validation of numbers:
-required – любое число включая ноль
-positive – положительное число
-range – диапазон, в который должны попадать числа включая границы
+```
+#### Validation of numbers:
+
+<ul>
+    <li><b>required</b> – любое число включая ноль</li>
+    <li><b>positive</b> – положительное число</li>
+    <li><b>range</b> – диапазон, в который должны попадать числа включая границы</li>
+</ul>
+
+```sh
 import hexlet.code.Validator;
 import hexlet.code.schemas.NumberSchema;
 
@@ -57,9 +68,15 @@ schema.isValid(5); // true
 schema.isValid(10); // true
 schema.isValid(4); // false
 schema.isValid(11); // false
-Validation of Map type objects:
-required – требуется тип данных Map
-sizeof – количество пар ключ-значений в объекте Map должно быть равно заданному
+```
+#### Validation of Map type objects:
+
+<ul>
+    <li><b>required</b> – требуется тип данных Map</li>
+    <li><b>sizeof</b> – количество пар ключ-значений в объекте Map должно быть равно заданному</li>
+</ul>
+
+```sh
 import hexlet.code.Validator;
 import hexlet.code.schemas.MapSchema;
 
@@ -82,7 +99,12 @@ schema.sizeof(2);
 schema.isValid(data);  // false
 data.put("key2", "value2");
 schema.isValid(data); // true
-Nested verification:
+```
+
+#### Nested verification:
+
+
+```sh
 import hexlet.code.Validator;
 import hexlet.code.schemas.MapSchema;
 
@@ -105,3 +127,4 @@ schema.sizeof(2);
 schema.isValid(data);  // false
 data.put("key2", "value2");
 schema.isValid(data); // true
+```
