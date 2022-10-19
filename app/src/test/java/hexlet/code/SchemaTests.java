@@ -70,7 +70,7 @@ public final class SchemaTests {
         assertFalse(nbrSchema.isValid(-1));
 
         nbrSchema.range(0, 2);
-        assertTrue(nbrSchema.isValid(0));
+        assertFalse(nbrSchema.isValid(0));
         assertTrue(nbrSchema.isValid(2));
         assertTrue(nbrSchema.isValid(1));
         assertFalse(nbrSchema.isValid(-1));
