@@ -9,7 +9,7 @@ public final class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema positive() {
-        transferData(obj -> obj instanceof Integer && (Integer) obj >= 0 || obj == null);
+        transferData(obj -> obj instanceof Integer && (Integer) obj > 0 || obj == null);
         return this;
     }
 
