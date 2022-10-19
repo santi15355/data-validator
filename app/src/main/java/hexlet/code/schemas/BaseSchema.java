@@ -1,31 +1,35 @@
 package hexlet.code.schemas;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema {
 
-    private final Map<String, Predicate<Object>> predicates = new HashMap<>();
-    private static String status;
-    private boolean result;
+    private final List<Predicate<Object>> predicates = new ArrayList<>();
+    private boolean required;
 
     public final boolean isValid(Object obj) {
 
         if (predicates.isEmpty()) {
-            result = true;
-        } else if (status.equals("required") && obj == null || obj == "") {
-            result = false;
+            return true;
+        } else if (required && obj == null || obj == "") {
+            return false;
         } else {
-            for (var predicate : predicates.entrySet()) {
-                return predicate.getValue().test(obj);
+            for (var predicate : predicates) {
+                if (!predicate.test(obj)) {
+                    return false;
+                }
             }
         }
-        return result;
+        return true;
     }
 
-    public final void transferData(String flag, Predicate<Object> predicate) {
-        status = flag;
-        predicates.put(status, predicate);
+    protected final void transferData(Predicate<Object> predicate) {
+        predicates.add(predicate);
+    }
+
+    protected final void setRequiredOn() {
+        required = true;
     }
 }
