@@ -13,13 +13,13 @@ public abstract class BaseSchema {
 
         if (predicates.isEmpty()) {
             return true;
-        } else if (required && obj == null || obj == "") {
+        }
+        if (required && obj == null || obj == "") {
             return false;
-        } else {
-            for (var predicate : predicates) {
-                if (!predicate.test(obj)) {
-                    return false;
-                }
+        }
+        for (var predicate : predicates) {
+            if (!predicate.test(obj)) {
+                return false;
             }
         }
         return true;
