@@ -5,7 +5,7 @@ public final class StringSchema extends BaseSchema {
     public StringSchema required() {
         setRequiredOn();
         transferData(obj -> obj instanceof String);
-        return this;meto
+        return this;
     }
 
     public StringSchema contains(String text) {
